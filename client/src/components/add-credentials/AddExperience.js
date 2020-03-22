@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import TextAreaFieldGroup from '../../common/TextAreaFieldGroup'
 import TextFieldGroup from '../../common/TextFieldGroup'
+import { addExperience } from '../../actions/profileAction'
 export class AddExperience extends Component {
 
     constructor() {
@@ -31,8 +33,6 @@ export class AddExperience extends Component {
             disabled: !this.state.disabled,
             current: !this.state.current,
         })
-        console.log('onCheck current before: ', this.state.current);
-        console.log('onCheck disabled after: ', this.state.disabled);
     }
 
     onChange(e) {
@@ -42,6 +42,13 @@ export class AddExperience extends Component {
         });
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
+    }
 
     onSubmit(e) {
         e.preventDefault();
@@ -54,7 +61,8 @@ export class AddExperience extends Component {
             current: this.current,
             description: this.description,
         }
-        console.log(experienceData);
+
+        this.props.addExperience(experienceData, this.props.history);
     }
 
     render() {
@@ -152,11 +160,12 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-
+    addExperience
 }
 
 AddExperience.propTypes = {
     errors: PropTypes.object,
+    addExperience: PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddExperience)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddExperience))

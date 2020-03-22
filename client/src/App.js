@@ -15,7 +15,7 @@ import { setCurrentUser } from './actions/authAction'
 import PrivateRoute from './common/PrivateRoute'
 import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
-import { AddExperience } from './components/add-credentials/AddExperience';
+import AddExperience from './components/add-credentials/AddExperience';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
