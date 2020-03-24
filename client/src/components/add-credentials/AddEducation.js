@@ -100,10 +100,10 @@ export class AddEduation extends Component {
                                     id="fieldofstudy"
                                     name="fieldofstudy"
                                     error={errors.fieldofstudy}
-                                    placeholder="Field of study"
+                                    placeholder="* Field of study"
                                     value={this.state.fieldofstudy}
                                     onChange={this.onChange}
-                                    label="Field of study"
+                                    label="* Field of study"
                                 />
                                 <h6 className="text-muted">Start Date</h6>
                                 <TextFieldGroup
@@ -165,7 +165,7 @@ const mapDispatchToProps = {
 
 AddEduation.propTypes = {
     errors: PropTypes.object,
-    addAddEduation: PropTypes.func.isRequired,
+    addEduation: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddEduation))

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../../common/Spinner'
 import ProfileActives from './ProfileActives'
 import Experience from './Experience'
+import Education from './Education'
 import PropTypes from 'prop-types'
 import isEmpty from '../../validation/is-empty'
 class Dashboard extends Component {
@@ -47,6 +48,7 @@ class Dashboard extends Component {
                         </p>
                         <ProfileActives />
                         <Experience experience={profile.experence ? profile.experence : []} />
+                        <Education education={profile.education ? profile.education : []} />
                         <div style={{ marginBottom: '60px' }}>
                             <button className="btn btn-danger" onClick={this.onDeleteClick}>Delete Account</button>
                         </div>

@@ -64,6 +64,23 @@ export const deleteExpericenceById = id => dispatch => {
         )
 }
 
+export const deleteEducationById = id => dispatch => {
+    axios.delete(`/api/profile/education?edu_id=${id}`)
+        .then(res => {
+            return dispatch({
+                type: GET_PROFILE,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            return dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        }
+        )
+}
+
 export const addEduation = (eduationData, history) => dispatch => {
     axios.post('/api/profile/education', eduationData)
         .then(res => history.push('/dashboard'))
