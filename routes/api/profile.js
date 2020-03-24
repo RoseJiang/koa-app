@@ -28,7 +28,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), async ctx => {
 	// console.log(profile);
 	if (profile.length > 0) {
 		ctx.status = 200;
-		ctx.body = profile;
+		ctx.body = profile[0];
 	} else {
 		ctx.status = 404;
 		ctx.body = { noprofile: 'There is no profile for this user!' };
@@ -275,11 +275,11 @@ router.delete('/education', passport.authenticate('jwt', { session: false }), as
 });
 
 /**
-*  @route DELETE /api/profile/experence?exp_id=xxx
+*  @route DELETE /api/profile/experience?exp_id=xxx
 *  @desc profile delete experence
 *  @access Private
 */
-router.delete('/experence', passport.authenticate('jwt', { session: false }), async ctx => {
+router.delete('/experience', passport.authenticate('jwt', { session: false }), async ctx => {
 	//console.log(ctx.state.user);
 	let errors = {};
 	const exp_id = ctx.query.exp_id;

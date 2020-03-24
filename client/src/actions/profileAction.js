@@ -6,7 +6,7 @@ export const getCurrentProfile = () => dispatch => {
     axios.get('/api/profile').then(res => {
         dispatch({
             type: GET_PROFILE,
-            payload: res.data[0]
+            payload: res.data
         });
     })
         .catch(err => dispatch({
@@ -25,6 +25,7 @@ export const addProfile = (profileData, history) => dispatch => {
 
 // Delete current profile & user
 export const deleteCurrentAccount = (params) => dispatch => {
+    console.log('deleteCurrentAccount');
     axios.delete('/api/profile').then(
         res => dispatch({
             type: SET_CURRENT_USER,
@@ -43,6 +44,24 @@ export const addExperience = (experienceData, history) => dispatch => {
             type: GET_ERRORS,
             payload: err.response.data
         }))
+}
+
+export const deleteExpericenceById = id => dispatch => {
+    console.log('deleteExpericenceById');
+    axios.delete(`/api/profile/experience?exp_id=${id}`)
+        .then(res => {
+            return dispatch({
+                type: GET_PROFILE,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            return dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        }
+        )
 }
 
 export const addEduation = (eduationData, history) => dispatch => {

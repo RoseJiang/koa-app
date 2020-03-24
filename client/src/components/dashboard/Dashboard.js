@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import Spinner from '../../common/Spinner'
 import ProfileActives from './ProfileActives'
+import Experience from './Experience'
 import PropTypes from 'prop-types'
-
+import isEmpty from '../../validation/is-empty'
 class Dashboard extends Component {
 
     constructor() {
@@ -18,16 +19,16 @@ class Dashboard extends Component {
 
     onDeleteClick(e) {
         e.preventDefault();
-        console.log('onDeleteClick');
         this.props.deleteCurrentAccount();
     }
 
+
     render() {
-        console.log(`-----Dashboard----render-----`);
         const { user } = this.props.auth;
         const { profile, loading } = this.props.profile;
+        console.log(`-----Dashboard----render-----`, profile);
         let dashboardContent;
-        if (profile === null || loading) {
+        if (isEmpty(profile) || loading) {
             dashboardContent = <Spinner />;
         } else {
             if (Object.keys(profile).length === 0) {
@@ -45,6 +46,7 @@ class Dashboard extends Component {
                             Welcome, <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
                         </p>
                         <ProfileActives />
+                        <Experience experience={profile.experence ? profile.experence : []} />
                         <div style={{ marginBottom: '60px' }}>
                             <button className="btn btn-danger" onClick={this.onDeleteClick}>Delete Account</button>
                         </div>
