@@ -87,13 +87,13 @@ router.post('/', passport.authenticate('jwt', { session: false }), async ctx => 
 });
 
 /**
-*  @route GET /api/profile/handle?handle=xxx
+*  @route GET /api/profile/handle/:handle
 *  @desc get profile by handle
 *  @access Public
 */
-router.get('/handle', async (ctx) => {
+router.get('/handle/:handle', async (ctx) => {
 	const errors = {};
-	const handle = ctx.query.handle;
+	const handle = ctx.params.handle;
 	const profile = await Profile.find({ handle: handle }).populate("user", ['name', 'avatar']);
 	if (profile.length === 0) {
 		ctx.status = 404;

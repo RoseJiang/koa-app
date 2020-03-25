@@ -15,6 +15,22 @@ export const getCurrentProfile = () => dispatch => {
         }))
 }
 
+export const getProfileByHandle = (handle) => dispatch => {
+    //设置加载动画
+    dispatch(setProfileLoading());
+    axios.get(`/api/profile/handle/${handle}`).then(res => ({
+        type: GET_PROFILE,
+        payload: res.data
+    })).catch(
+        ({
+            type: GET_PROFILE,
+            payload: {}
+        })
+    )
+
+}
+
+
 export const addProfile = (profileData, history) => dispatch => {
     axios.post('/api/profile', profileData).then(res => history.push('/dashboard'))
         .catch(err => dispatch({

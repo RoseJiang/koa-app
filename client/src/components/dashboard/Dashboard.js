@@ -7,7 +7,6 @@ import ProfileActives from './ProfileActives'
 import Experience from './Experience'
 import Education from './Education'
 import PropTypes from 'prop-types'
-import isEmpty from '../../validation/is-empty'
 class Dashboard extends Component {
 
     constructor() {
