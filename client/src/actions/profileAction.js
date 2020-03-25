@@ -18,11 +18,11 @@ export const getCurrentProfile = () => dispatch => {
 export const getProfileByHandle = (handle) => dispatch => {
     //设置加载动画
     dispatch(setProfileLoading());
-    axios.get(`/api/profile/handle/${handle}`).then(res => ({
+    axios.get(`/api/profile/handle/${handle}`).then(res => dispatch({
         type: GET_PROFILE,
         payload: res.data
     })).catch(
-        ({
+        err => dispatch({
             type: GET_PROFILE,
             payload: {}
         })

@@ -100,7 +100,7 @@ router.get('/handle/:handle', async (ctx) => {
 		errors.noprofile = 'There is not profile for the user.';
 		ctx.body = errors;
 	} else {
-		ctx.body = profile;
+		ctx.body = profile[0];
 	}
 });
 
