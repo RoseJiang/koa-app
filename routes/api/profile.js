@@ -24,7 +24,7 @@ router.get('/test', async (ctx) => {
 */
 router.get('/', passport.authenticate('jwt', { session: false }), async ctx => {
 	// console.log(ctx.state.user);
-	const profile = await Profile.find({ user: ctx.state.user.id }).populate("users", ['name', 'avatar']);
+	const profile = await Profile.find({ user: ctx.state.user.id }).populate("user", ['name', 'avatar']);
 	// console.log(profile);
 	if (profile.length > 0) {
 		ctx.status = 200;
@@ -94,7 +94,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), async ctx => 
 router.get('/handle', async (ctx) => {
 	const errors = {};
 	const handle = ctx.query.handle;
-	const profile = await Profile.find({ handle: handle }).populate("users", ['name', 'avatar']);
+	const profile = await Profile.find({ handle: handle }).populate("user", ['name', 'avatar']);
 	if (profile.length === 0) {
 		ctx.status = 404;
 		errors.noprofile = 'There is not profile for the user.';
@@ -112,7 +112,7 @@ router.get('/handle', async (ctx) => {
 router.get('/user', async (ctx) => {
 	const errors = {};
 	const user_id = ctx.query.user_id;
-	const profile = await Profile.find({ user: user_id }).populate("users", ['name', 'avatar']);
+	const profile = await Profile.find({ user: user_id }).populate("user", ['name', 'avatar']);
 	if (profile.length === 0) {
 		ctx.status = 404;
 		errors.noprofile = 'There is not profile for the user.';
@@ -130,7 +130,7 @@ router.get('/user', async (ctx) => {
 router.get('/user', async (ctx) => {
 	const errors = {};
 	const user_id = ctx.query.user_id;
-	const profile = await Profile.find({ user: user_id }).populate("users", ['name', 'avatar']);
+	const profile = await Profile.find({ user: user_id }).populate("user", ['name', 'avatar']);
 	if (profile.length === 0) {
 		ctx.status = 404;
 		errors.noprofile = 'There is not profile for the user.';
@@ -147,7 +147,7 @@ router.get('/user', async (ctx) => {
 */
 router.get('/all', async (ctx) => {
 	const errors = {};
-	const profiles = await Profile.find({}).populate("users", ['name', 'avatar']);
+	const profiles = await Profile.find({}).populate("user", ['name', 'avatar']);
 	if (profiles.length === 0) {
 		ctx.status = 404;
 		errors.noprofile = 'There is not profile for the user.';

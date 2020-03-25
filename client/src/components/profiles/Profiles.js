@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import isEmpty from '../../validation/is-empty'
 import Spinner from '../../common/Spinner'
 import { getProfiles } from '../../actions/profileAction'
+import ProfileItem from './ProfileItem'
 
 class Profiles extends Component {
 
@@ -14,13 +15,16 @@ class Profiles extends Component {
     render() {
         const { profiles, loading } = this.props.profile;
         let profilesContent;
-        if (isEmpty(profiles) || loading) {
+        if (profiles === null || loading) {
             profilesContent = <Spinner />;
         } else {
             if (Object.keys(profiles).length === 0) {
-                profilesContent = <h3>There is np profile</h3>
+                profilesContent = <h3>There is no profile</h3>
             } else {
-                profilesContent = <h3>TODO: Display</h3>
+                profilesContent = (
+                    profiles.map(
+                        profile => <ProfileItem key={profile._id} profile={profile} />
+                    ))
             }
         }
         return (

@@ -29,7 +29,7 @@ class Dashboard extends Component {
         const { profile, loading } = this.props.profile;
         console.log(`-----Dashboard----render-----`, profile);
         let dashboardContent;
-        if (isEmpty(profile) || loading) {
+        if (profile === null || loading) {
             dashboardContent = <Spinner />;
         } else {
             if (Object.keys(profile).length === 0) {
