@@ -8,7 +8,7 @@ import ProfileGithub from './ProfileGithub'
 import { getProfileByHandle } from '../../actions/profileAction'
 import Spinner from '../../common/Spinner'
 import { Link } from 'react-router-dom'
-
+import isEmpty from '../../validation/is-empty'
 class Profile extends Component {
 
     componentDidMount() {
@@ -35,7 +35,10 @@ class Profile extends Component {
                     <ProfileHeader profile={profile} />
                     <ProfileAbout profile={profile} />
                     <ProfileCreds experience={profile.experence} education={profile.education} />
-                    <ProfileGithub />
+                    {
+                        isEmpty(profile.githubusername) ? null : (<ProfileGithub username={profile.githubusername} />)
+                    }
+
                 </div>
             )
         }

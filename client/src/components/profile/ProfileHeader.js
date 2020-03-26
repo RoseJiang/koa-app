@@ -29,22 +29,22 @@ class ProfileHeader extends Component {
                             )}
                             <p>
                                 {isEmpty(profile.website) ? null : (
-                                    <a className="text-white p-2" href={profile.website} target="_blank"><i className="fas  fa-globe fa-2x" /></a>
+                                    <a className="text-white p-2" href={profile.website} target="_blank" rel="noopener noreferrer"><i className="fas  fa-globe fa-2x" /></a>
                                 )}
 
                                 {isEmpty(profile.social && profile.social.wechat) ? null : (
-                                    <a className="text-white p-2" href={profile.social.wechat} target="_blank"><i className="fab  fa-weixin fa-2x" /></a>
+                                    <a className="text-white p-2" href={profile.social.wechat} target="_blank" rel="noopener noreferrer"><i className="fab  fa-weixin fa-2x" /></a>
                                 )}
 
                                 {isEmpty(profile.social && profile.social.QQ) ? null : (
-                                    <a className="text-white p-2" href={profile.social.QQ} target="_blank"><i className="fab  fa-qq fa-2x" /></a>
+                                    <a className="text-white p-2" href={profile.social.QQ} target="_blank" rel="noopener noreferrer"><i className="fab  fa-qq fa-2x" /></a>
                                 )}
 
                                 {isEmpty(profile.social && profile.social.tengxunkt) ? null : (
-                                    <a className="text-white p-2" href={profile.social.tengxunkt} target="_blank"><i className="fab  fa-youtube fa-2x" /></a>
+                                    <a className="text-white p-2" href={profile.social.tengxunkt} target="_blank" rel="noopener noreferrer"><i className="fab  fa-youtube fa-2x" /></a>
                                 )}
                                 {isEmpty(profile.social && profile.social.wangyiyunkt) ? null : (
-                                    <a className="text-white p-2" href={profile.social.wangyiyunkt} target="_blank"><i className="fab  fa-facebook fa-2x" /></a>
+                                    <a className="text-white p-2" href={profile.social.wangyiyunkt} target="_blank" rel="noopener noreferrer"><i className="fab  fa-facebook fa-2x" /></a>
                                 )}
                             </p>
                         </div>
