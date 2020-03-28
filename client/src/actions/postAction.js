@@ -23,6 +23,28 @@ export const deletePost = id => dispatch => {
     }))
 }
 
+export const likePost = id => dispatch => {
+    axios.post(`/api/posts/like?id=${id}`).then(
+        res => {
+            dispatch(getPosts());
+        }
+    ).catch(err => dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+    }))
+}
+
+export const unlikePost = id => dispatch => {
+    axios.post(`/api/posts/unlike?id=${id}`).then(
+        res => {
+            dispatch(getPosts());
+        }
+    ).catch(err => dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+    }))
+}
+
 export const getPosts = () => dispatch => {
     dispatch(setPostLoading());
     axios.get(`/api/posts`).then(res => dispatch({

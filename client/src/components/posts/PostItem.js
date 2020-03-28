@@ -2,12 +2,33 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { deletePost } from '../../actions/postAction'
+import { deletePost, likePost, unlikePost } from '../../actions/postAction'
+import classnames from 'classnames'
 class PostItem extends Component {
 
     onDeletePost(id, e) {
         e.preventDefault();
         this.props.deletePost(id);
+    }
+
+    onLikeClick(id, e) {
+        e.preventDefault();
+        this.props.likePost(id);
+    }
+
+    onUnlikeClick(id, e) {
+        e.preventDefault();
+        this.props.unlikePost(id);
+    }
+
+    findUserLike(likes) {
+        const { auth } = this.props
+        const likedIndex = likes.findIndex(like => like.user === auth.user.id)
+        if (likedIndex > -1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     render() {
@@ -25,13 +46,13 @@ class PostItem extends Component {
                     </div>
                     <div className="col-md-10">
                         <p className="lead">{post.text}</p>
-                        <button type="button" className="btn btn-light mr-1">
-                            <i className="text-info fas fa-thumbs-up"></i>
+                        <button type="button" className="btn btn-light mr-1" onClick={this.onLikeClick.bind(this, post._id)}>
+                            <i className={classnames("fas fa-thumbs-up", { "text-info": this.findUserLike(post.likes) })}></i>
                             <span className="badge badge-light">{post.likes.length}</span>
                         </button>
-                        <button type="button" className="btn btn-light mr-1">
-                            <i className="text-info fas fa-thumbs-down"></i>
-                            <span className="badge badge-light">4</span>
+                        <button type="button" className="btn btn-light mr-1" onClick={this.onUnlikeClick.bind(this, post._id)}>
+                            <i className="fas fa-thumbs-down"></i>
+                            <span className="badge badge-light"></span>
                         </button>
                         <Link to={`/post/${post._id}`} className="btn btn-info mr-1">Comments </Link>
                         {user.name === post.name ? (<button type="button"
@@ -50,11 +71,13 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    deletePost
+    deletePost, likePost, unlikePost
 }
 PostItem.propTypes = {
     auth: PropTypes.object.isRequired,
     post: PropTypes.object.isRequired,
     deletePost: PropTypes.func.isRequired,
+    likePost: PropTypes.func.isRequired,
+    unlikePost: PropTypes.func.isRequired,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PostItem)
