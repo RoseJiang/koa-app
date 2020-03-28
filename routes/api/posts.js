@@ -39,6 +39,35 @@ router.post('/', passport.authenticate('jwt', { session: false }), async ctx => 
     }).catch(err => console.error(err));
 
 });
+
+// $route  DELETE api/posts/:id
+// @desc   删除单个评论信息
+// @access Private
+router.delete("/:id", passport.authenticate('jwt', { session: false }), async ctx => {
+    const profile = await Profile.find({ user: ctx.state.user.id }).populate("user", ['name', 'avatar']);
+    if (profile.length > 0) {
+        const post = await Post.find({ _id: ctx.params.id });
+        if (post.length > 0) {
+            //console.log(post);
+            if (post[0].user !== ctx.state.user.id) {
+                ctx.status = 401;
+                ctx.body = { notauthorized: "用户非法操作!" };
+            } else {
+                const deletePost = await Post.deleteOne({ _id: ctx.params.id });
+                if (deletePost.ok === 1) {
+                    ctx.status = 200;
+                    ctx.body = { success: true };
+                }
+            }
+        } else {
+            ctx.status = 404;
+            ctx.body = { profilenotfound: "There is no post" };
+        }
+    } else {
+        ctx.status = 404;
+        ctx.body = { profilenotfound: "There is no profile" };
+    }
+})
 /**
  * @route GET  /api/posts
  * @desc fetch all posts
