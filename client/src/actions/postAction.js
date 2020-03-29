@@ -44,6 +44,18 @@ export const deletePost = id => dispatch => {
     }))
 }
 
+export const deleteComment = (postId, commentId) => dispatch => {
+    axios.delete(`/api/posts/comment/${postId}/${commentId}`).then(
+        res => dispatch({
+            type: GET_POST,
+            payload: res.data
+        })
+    ).catch(err => dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+    }))
+}
+
 export const likePost = id => dispatch => {
     axios.post(`/api/posts/like?id=${id}`).then(
         res => {

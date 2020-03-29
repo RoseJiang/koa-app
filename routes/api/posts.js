@@ -218,14 +218,12 @@ router.post('/comments', passport.authenticate('jwt', { session: false }), async
 
 });
 
-/**
- * @route Post  /api/posts/comments?post_id=xxxxxx&comments_id=xxx
- * @desc Delete a comments
- * @access Private
- */
-router.delete('/comments', passport.authenticate('jwt', { session: false }), async ctx => {
-    const post_id = ctx.query.post_id;
-    const comments_id = ctx.query.comments_id;
+// $route  DELETE api/posts/comment/:id
+// @desc   删除评论接口
+// @access Private
+router.delete("/comment/:id/:comment_id", passport.authenticate('jwt', { session: false }), async ctx => {
+    const post_id = ctx.params.id;
+    const comments_id = ctx.params.comment_id;
     const profile = await Profile.find({ user: ctx.state.user.id });
     //console.log(profile);
     if (profile.length > 0) {
@@ -249,6 +247,5 @@ router.delete('/comments', passport.authenticate('jwt', { session: false }), asy
         ctx.status = 400;
         ctx.body = { message: 'There is no profile' };
     }
-
-});
+})
 module.exports = router.routes();
