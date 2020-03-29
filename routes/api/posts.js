@@ -82,6 +82,25 @@ router.get('/', passport.authenticate('jwt', { session: false }), async ctx => {
         ctx.body = [];
     }
 });
+
+/**
+ * @route GET  /api/posts/:id
+ * @desc fetch a posts
+ * @access Pirvate
+ */
+router.get('/:id', passport.authenticate('jwt', { session: false }), async ctx => {
+    const id = ctx.params.id;
+    console.log(id);
+    const post = await Post.find({ _id: id }).populate("user", ['name', 'avatar']);
+    console.log(post)
+    if (post.length > 0) {
+        ctx.status = 200;
+        ctx.body = post[0];
+    } else {
+        ctx.status = 404;
+        ctx.body = { notfoundpost: 'There is no post' };
+    }
+});
 /**
  * @route Post  /api/posts/like?id=xxxxxx
  * @desc like a post
@@ -121,7 +140,7 @@ router.post('/like', passport.authenticate('jwt', { session: false }), async ctx
  * @route GET  /api/posts
  * @desc fetch all posts
  * @access Pirvate
- */
+
 router.get('/', passport.authenticate('jwt', { session: false }), async ctx => {
     const posts = await Post.find({});
     if (posts.length > 0) {
@@ -130,7 +149,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), async ctx => {
     } else {
         ctx.body = { message: 'There is no post for the user.' };
     }
-});
+}); */
 /**
  * @route Post  /api/posts/unlike?id=xxxxxx
  * @desc unlike a post
